@@ -83,16 +83,16 @@ input { accent-color: var(--accent); }
 .result-heading { overflow-wrap: anywhere; }
 .result-name { font-size: clamp(30px, 8vw, 38px); font-weight: 900; line-height: 1.4; overflow-wrap: anywhere; }
 .result-card .dog { width: 100%; overflow-wrap: anywhere; }
-.result-card .description { color: #666; }
+.result-card .description { color: #666; white-space: pre-line; }
 .result-card .picked { border-color: var(--line); border-radius: 10px; background: var(--paper); font-size: 12px; }
 .result-card .bottom { color: var(--muted); font-weight: 300; }
 .result-card h2 { font-size: 29px; font-weight: 900; }
-.recommend { padding: 16px; }
-.recommend a { color: var(--muted); }
+.recommend { padding: 16px; color: #000; }
+.recommend p, .recommend a { color: #000; }
 .recommend p strong { display: inline; margin: 0; font-weight: 800; }
 .recommend .ingredient-highlight { text-decoration-line: underline; text-decoration-color: #ffd84d; text-decoration-thickness: 4px; text-underline-offset: 3px; text-decoration-skip-ink: none; }
 .recommend summary { line-height: 1.7; }
-.recommend .product-link { display: inline-block; margin-top: 6px; font-size: 13px; font-weight: 700; color: var(--ink); }
+.recommend .product-link { display: inline-block; margin-top: 6px; font-size: 13px; font-weight: 700; color: #000; }
 .unavailable { opacity: .45; cursor: default; }
 .official-channels { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
 .official-channel { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--ink); font-size: 12px; font-weight: 600; text-decoration: none; }

@@ -80,9 +80,20 @@ const storeLogo=externalUrl(CFG.storeLogoUrl);
 const channel=(url,label,icon)=>url?`<a class="official-channel" href="${escape(url)}" target="_blank" rel="noopener noreferrer" aria-label="YEET 공식 ${label} 새 창으로 열기">${icon}<span>${label}</span></a>`:`<span class="official-channel unavailable" aria-disabled="true">${icon}<span>${label}</span></span>`;
 channels.innerHTML=channel(instagramUrl,'인스타그램',`<span class="channel-icon" aria-hidden="true">${instagramIcon}</span>`)+channel(storeUrl,'자사몰',storeLogo?`<img class="channel-logo" src="${escape(storeLogo)}" alt="">`:'');
 }
-function results(){const r=getResult(),dog=escape(state.name.trim()||'우리 아이');app.innerHTML=`<h2 class="result-heading">우리 <strong class="result-name">${dog}</strong>의 성향,<br>결과가 나왔어요!</h2><div class="progress"><span style="width:100%"></span></div><div class="result-card" id="resultCard"><div class="result-logos"><img class="result-event-logo" src="${escape(document.querySelector('.event-logo').src)}" alt="메가주" width="240" height="35"><img class="result-brand-logo" src="${escape(document.querySelector('.brand-logo').src)}" alt="YEET" width="500" height="180"></div><div class="illustration" aria-hidden="true"><img class="result-animal" src="${animalIcons[r.code]}" alt="" width="96" height="96"></div><div class="dog"><strong class="result-name">${dog}</strong>의 성향</div><h2>${r.type.name}<span class="type-code">(${r.code})</span></h2><p class="description">${r.type.desc}</p>${state.product!=='none'?`<div class="picked">${escape(selectionText())}</div>`:''}</div><div class="result-actions"><button class="button instagram" id="share"><span class="instagram-icon" aria-hidden="true">${instagramIcon}</span>결과 공유하기</button><button class="button secondary" id="download"><span class="instagram-icon" aria-hidden="true">${downloadIcon}</span>이미지 저장</button></div>${productInfo()}<p class="smallnote">결과 이미지는 강아지 사진 없이 만들어집니다. 공유 기능은 기기별로 달라 이미지 저장 기능도 제공합니다.</p><p class="status" id="saveStatus">응답 기록 상태를 확인하고 있어요.</p><button class="button outline" id="reset">처음부터 다시하기</button>`;
+function results(){const r=getResult(),dog=escape(state.name.trim()||'우리 아이');app.innerHTML=`<h2 class="result-heading">우리 <strong class="result-name">${dog}</strong>의 성향,<br>결과가 나왔어요!</h2><div class="progress"><span style="width:100%"></span></div><div class="result-card" id="resultCard"><div class="result-logos"><img class="result-event-logo" src="${escape(document.querySelector('.event-logo').src)}" alt="메가주" width="240" height="35"><img class="result-brand-logo" src="${escape(document.querySelector('.brand-logo').src)}" alt="YEET" width="500" height="180"></div><div class="illustration" aria-hidden="true"><img class="result-animal" src="${animalIcons[r.code]}" alt="" width="96" height="96"></div><div class="dog"><strong class="result-name">${dog}</strong>의 성향</div><h2>${r.type.name}<span class="type-code">(${r.code})</span></h2><p class="description">${escape(formatDescription(r.type.desc))}</p>${state.product!=='none'?`<div class="picked">${escape(selectionText())}</div>`:''}</div><div class="result-actions"><button class="button instagram" id="share"><span class="instagram-icon" aria-hidden="true">${instagramIcon}</span>결과 공유하기</button><button class="button secondary" id="download"><span class="instagram-icon" aria-hidden="true">${downloadIcon}</span>이미지 저장</button></div>${productInfo()}<p class="smallnote">결과 이미지는 강아지 사진 없이 만들어집니다. 공유 기능은 기기별로 달라 이미지 저장 기능도 제공합니다.</p><p class="status" id="saveStatus">응답 기록 상태를 확인하고 있어요.</p><button class="button outline" id="reset">처음부터 다시하기</button>`;
 document.getElementById('download').onclick=downloadCard;document.getElementById('share').onclick=shareCard;document.getElementById('reset').onclick=()=>location.reload();}
-function wrap(ctx,text,x,y,maxWidth,lineHeight){let words=String(text).split(' '),line='';for(const w of words){let next=line?line+' '+w:w;if(ctx.measureText(next).width>maxWidth&&line){ctx.fillText(line,x,y);y+=lineHeight;line=w;}else line=next;}ctx.fillText(line,x,y);return y+lineHeight}
+function formatDescription(text){return String(text).replace(/,\s*/g,',\n')}
+function wrap(ctx,text,x,y,maxWidth,lineHeight){
+for(const paragraph of String(text).split('\n')){
+let line='';
+for(const word of paragraph.split(' ')){
+const next=line?line+' '+word:word;
+if(ctx.measureText(next).width>maxWidth&&line){ctx.fillText(line,x,y);y+=lineHeight;line=word}else line=next;
+}
+ctx.fillText(line,x,y);y+=lineHeight;
+}
+return y;
+}
 function createCanvas(){
 const c=document.createElement('canvas');c.width=1080;c.height=1920;
 const ctx=c.getContext('2d'),r=getResult();
@@ -92,7 +103,7 @@ ctx.drawImage(document.querySelector('.event-logo'),110,132,320,46.67);ctx.drawI
 ctx.drawImage(document.querySelector('.result-animal'),450,370,180,180);
 ctx.fillStyle='#35342f';ctx.font='bold 47px "Noto Sans KR",sans-serif';wrap(ctx,(state.name.trim()||'우리 아이').slice(0,24)+'의 성향',540,705,900,65);
 ctx.font='900 72px "Noto Sans KR",sans-serif';ctx.fillText(r.type.name+'('+r.code+')',540,880,900);
-ctx.font='36px "Noto Sans KR",sans-serif';ctx.fillStyle='#666';wrap(ctx,r.type.desc,540,990,850,65);
+ctx.font='36px "Noto Sans KR",sans-serif';ctx.fillStyle='#666';wrap(ctx,formatDescription(r.type.desc),540,990,850,65);
 ctx.strokeStyle='#dedede';ctx.beginPath();ctx.roundRect(90,1210,900,270,20);ctx.stroke();
 ctx.fillStyle='#35342f';ctx.font='bold 39px "Noto Sans KR",sans-serif';wrap(ctx,state.product==='none'?'우리 아이만의 속도와 성향을 함께 알아가요.':selectionText(),540,1315,790,65);
 

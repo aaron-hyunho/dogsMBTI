@@ -41,11 +41,13 @@ npm run dev
 
 ## 2. GitHub Pages 배포
 
-1. GitHub에서 **새 Public 저장소**(예: `dogs-mbti`)를 생성합니다.
-2. 이 폴더의 `index.html`, `styles.css`, `theme.css`, `app.js`, `config.js`와 `asset` 폴더를 저장소 **최상위(root)**에 업로드합니다. `Code.gs`와 README도 함께 업로드해도 되지만, `Code.gs`에는 비밀정보를 넣지 마세요.
-3. 저장소 **Settings → Pages → Build and deployment → Deploy from a branch**를 선택합니다.
-4. Branch `main`, Folder `/(root)`를 지정하고 **Save**합니다.
-5. `https://깃허브아이디.github.io/dogs-mbti/` 형태의 주소에서 테스트합니다. 이 URL을 QR코드로 변환해 부스에 부착합니다.
+1. 저장소 **Settings → Pages → Build and deployment → Source**를 **GitHub Actions**로 설정합니다.
+2. `main` 브랜치에 변경 사항을 푸시합니다. `.github/workflows/deploy.yml`이 의존성 설치 → 테스트 → Vite 빌드 → `dist` 배포를 자동으로 실행합니다.
+3. 저장소 **Actions**에서 **GitHub Pages 배포** 실행이 성공했는지 확인합니다. 필요하면 **Run workflow**로 다시 배포할 수 있습니다.
+4. `https://aaron-hyunho.github.io/dogsMBTI/`에서 확인합니다. 이 URL을 QR코드로 변환해 부스에 부착합니다.
+5. 저장소 이름이 바뀌면 `vite.config.mjs`의 `base`도 실제 저장소 경로에 맞게 수정합니다.
+
+이 프로젝트는 npm 패키지와 SVG 가져오기를 사용하므로 원본 파일을 직접 배포하면 작동하지 않습니다. 배포 대상은 `npm run build`가 생성한 `dist`입니다. `dist`는 Git에 직접 커밋하지 않습니다.
 
 ## 3. 현장 운영 주의사항
 - 보호자의 시식 적합성 확인 후 급여; 거부, 긴장, 식이 제한이 있으면 시식하지 않음 선택

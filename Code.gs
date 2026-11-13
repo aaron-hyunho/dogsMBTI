@@ -3,8 +3,9 @@
  * Script Properties에 별도 비밀키를 넣을 필요 없음. 공개 쓰기 엔드포인트이므로
  * 스팸/할당량 위험이 있고, 행사 운영 시 시트 보호·모니터링 권장.
  */
-const SHEET_NAME = '응답';
-const HEADERS = ['기록시간','참여ID','강아지이름','Q1','Q2','Q3','Q4','Q5','Q6','선택제품','선택방식','유형','탐색성평균','식감평균','중간결과'];
+const SHEET_NAME = '응답_v2';
+const SURVEY_VERSION = 'temperament-treat-v2';
+const HEADERS = ['기록시간','참여ID','강아지이름','Q1_산책탐색','Q2_공간탐색','Q3_집활동','Q4_산책활동','간식식감선호','간식원료선호','선택제품','선택방식','유형','탐색성평균','활동성평균','중간결과','설문버전'];
 const PRODUCTS = ['오리가슴살육포','닭가슴살육포','소고기육포','오리안심오돌뼈','돼지등심육포','소홍두깨살육포','오리근위육포','시식하지 않음'];
 const MODES = ['dog','owner','none'];
 function doPost(e) {
@@ -12,9 +13,9 @@ function doPost(e) {
   const nonce = String(p.nonce || '').replace(/[^a-zA-Z0-9]/g,'').slice(0,80);
   let ok = false, error = '';
   try {
-    if (p.consent !== 'Y') throw new Error('저장 동의 없음');
+    if (p.surveyVersion !== SURVEY_VERSION) throw new Error('설문 버전이 다릅니다. 페이지를 새로고침하세요.');
     const answers = JSON.parse(p.answers || '[]');
-    if (!Array.isArray(answers) || answers.length !== 6 || answers.some(v => !Number.isInteger(v) || v < 0 || v > 5)) throw new Error('설문 형식 오류');
+    if (!Array.isArray(answers) || answers.length !== 6 || answers.some(v => !Number.isInteger(v) || v < 1 || v > 5)) throw new Error('설문 형식 오류');
     if (!PRODUCTS.includes(p.product)) throw new Error('제품 형식 오류');
     if (!MODES.includes(p.selectionMode)) throw new Error('선택 방식 오류');
     if (!['ET','ES','CT','CS'].includes(p.type)) throw new Error('유형 형식 오류');
@@ -25,7 +26,9 @@ function doPost(e) {
     try {
       // CSV/formula injection 방지: 문자열을 수식으로 해석하지 않도록 앞에 작은따옴표 표시
       const safe = x => { const s=String(x == null ? '' : x).slice(0,180); return /^[=+\-@\t\r]/.test(s) ? "'"+s : s; };
-      const row = [new Date(),safe(p.sessionId),safe(p.dogName),...answers,safe(p.product),safe(p.selectionMode),safe(p.type),safe(p.novelty),safe(p.texture),safe(p.ambiguous)];
+      const novelty=(answers[0]+answers[1])/2,activity=(answers[2]+answers[3])/2;
+      const type=(novelty<=3?'E':'C')+(activity<=3?'S':'T');
+      const row = [new Date(),safe(p.sessionId),safe(p.dogName),...answers.map(v=>v===null?'':v),safe(p.product),safe(p.selectionMode),type,novelty.toFixed(3),activity.toFixed(3),novelty===3||activity===3?'Y':'N',SURVEY_VERSION];
       sheet.appendRow(row);
       ok = true;
     } finally { lock.releaseLock(); }

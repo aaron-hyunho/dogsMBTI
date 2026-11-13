@@ -1,0 +1,16 @@
+{
+  "name": "dogs-mbti",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite --host localhost --port 1000 --strictPort",
+    "build": "vite build",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "devDependencies": {
+    "vite": "^8.3.8"
+  },
+  "dependencies": {
+    "motion": "^14.13.0"
+  }
+}

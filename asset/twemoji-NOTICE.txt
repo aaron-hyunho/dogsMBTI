@@ -1,0 +1,5 @@
+결과 카드 동물 아이콘: Twemoji 16.0.1
+저작권: Twitter, Inc. 및 기타 기여자
+출처: https://github.com/jdecked/twemoji/tree/v16.0.1/assets/svg
+라이선스: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+원본 SVG를 변경 없이 사용합니다. 전문은 twemoji-LICENSE.txt를 참고하세요.

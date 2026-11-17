@@ -93,13 +93,23 @@ input { accent-color: var(--accent); }
 .recommend p, .recommend a { color: #000; }
 .recommend p strong { display: inline; margin: 0; font-weight: 800; }
 .recommend .ingredient-highlight { text-decoration-line: underline; text-decoration-color: #ffd84d; text-decoration-thickness: 4px; text-underline-offset: 3px; text-decoration-skip-ink: none; }
-.recommend summary { line-height: 1.7; }
-.recommend .teaser { position: relative; margin-top: 4px; padding-bottom: 8px; }
-.recommend .teaser p { margin: 0 0 56px; line-height: 1.7; }
-.recommend .teaser-fade { position: absolute; left: -4px; right: -4px; bottom: 0; top: 45%; display: flex; align-items: center; justify-content: center; background: linear-gradient(to bottom, rgba(255,255,255,0), var(--paper, #fff) 85%); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); -webkit-mask-image: linear-gradient(to bottom, transparent, #000 40%); mask-image: linear-gradient(to bottom, transparent, #000 40%); }
+.recommend .rec-title { margin: 0 0 14px; font-size: 17px; line-height: 1.6; font-weight: 700; }
+.recommend .rec-dog { display: inline; font-size: 28px; font-weight: 900; color: var(--orange, #df8855); }
+.recommend .teaser { position: relative; }
+.recommend .teaser p, .recommend > p { margin: 0; font-size: 15px; line-height: 1.85; }
+.recommend .teaser-fade { position: absolute; left: -6px; right: -6px; bottom: -6px; top: 30%; display: flex; align-items: center; justify-content: center; background: linear-gradient(to bottom, rgba(255,255,255,0), var(--paper, #fff) 90%); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); -webkit-mask-image: linear-gradient(to bottom, transparent, #000 35%); mask-image: linear-gradient(to bottom, transparent, #000 35%); }
+.recommend .plain-more { margin-top: 12px; }
 .recommend .product-link { display: inline-block; margin: 0; padding: 10px 22px; border-radius: 999px; background: #000; color: #fff; font-size: 14px; font-weight: 800; text-decoration: none; }
-.recommend p a.product-link, .recommend .teaser-fade .product-link { color: #fff; }
+.recommend .teaser-fade .product-link, .recommend .plain-more .product-link { color: #fff; }
 .recommend .product-link.unavailable { opacity: .5; }
+.loading-page { text-align: center; padding-top: 12px; }
+.loading-ad { position: relative; height: clamp(200px, calc(100vh - 400px), 440px); height: clamp(200px, calc(100dvh - 400px), 440px); width: auto; max-width: 100%; aspect-ratio: 955 / 1470; margin: 0 auto 22px; border: 1px solid var(--line, #dedede); border-radius: 16px; background: #fff; display: grid; place-items: center; overflow: hidden; }
+.loading-ad img { width: 100%; height: 100%; object-fit: contain; }
+.loading-ad-label { position: absolute; top: 8px; left: 10px; font-size: 11px; font-weight: 700; color: #888; letter-spacing: .05em; }
+.loading-page h2 { margin: 0 0 8px; line-height: 1.5; }
+.loading-bar { height: 6px; margin: 18px 0 22px; border-radius: 99px; background: #eee; overflow: hidden; }
+.loading-bar span { display: block; height: 100%; width: 0; background: var(--orange, #df8855); animation: loadingFill 2s linear forwards; }
+@keyframes loadingFill { to { width: 100%; } }
 .unavailable { opacity: .45; cursor: default; }
 .official-channels { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
 .official-channel { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--ink); font-size: 12px; font-weight: 600; text-decoration: none; }

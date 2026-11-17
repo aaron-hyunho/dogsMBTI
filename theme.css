@@ -100,6 +100,7 @@ input { accent-color: var(--accent); }
 .official-channel { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--ink); font-size: 12px; font-weight: 600; text-decoration: none; }
 .channel-icon, .channel-icon svg, .channel-icon img { display: block; width: 22px; height: 22px; }
 .channel-logo { display: block; width: 24px; height: 24px; object-fit: contain; }
+.store-channel-label { font-size: 18px; line-height: 22px; font-weight: 700; }
 .smartstore-logo { display: block; position: relative; width: 84px; height: 16px; overflow: hidden; flex-shrink: 0; }
 .smartstore-logo img { position: absolute; display: block; width: 256px; max-width: none; height: 144px; left: -86px; top: -64px; }
 .official-channel:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }

@@ -6,14 +6,32 @@ import foxIcon from './asset/fox.svg';
 import rabbitIcon from './asset/rabbit.svg';
 import lionIcon from './asset/lion.svg';
 import bearIcon from './asset/bear.svg';
+import beefEyeRoundThin from './asset/products/beef-eye-round-thin.webp';
+import duckBreastThin from './asset/products/duck-breast-thin.webp';
+import porkLoinThin from './asset/products/pork-loin-thin.webp';
+import chickenBreastThin from './asset/products/chicken-breast-thin.webp';
+import porkLoinCrunch from './asset/products/pork-loin-crunch.webp';
+import beefJerkyCrunch from './asset/products/beef-jerky-crunch.webp';
+import duckBreastCrunch from './asset/products/duck-breast-crunch.webp';
+import chickenBreastCrunch from './asset/products/chicken-breast-crunch.webp';
 const instagramIcon = `<img src="${instagramLogo}" alt="" width="22" height="22">`;
 
 (() => {
 'use strict';
 const CFG=window.TREAT_DNA_CONFIG||{};
 const animalIcons={ET:foxIcon,ES:rabbitIcon,CT:lionIcon,CS:bearIcon};
+const productImages={
+  '소홍두깨살(씬)':beefEyeRoundThin,
+  '오리가슴살(씬)':duckBreastThin,
+  '돼지등심육포(씬)':porkLoinThin,
+  '닭가슴살육포(씬)':chickenBreastThin,
+  '돼지등심육포(크런치)':porkLoinCrunch,
+  '소고기육포(크런치)':beefJerkyCrunch,
+  '오리가슴살육포(크런치)':duckBreastCrunch,
+  '닭가슴살육포(크런치)':chickenBreastCrunch,
+};
 const TYPES={ET:{name:'호기심 대장 탐험가',emoji:'🦊',desc:'새로운 곳에 먼저 다가가고, 신나게 움직이며 세상을 알아가는 편이에요.',color:'#df8855'},ES:{name:'느긋한 모험가',emoji:'🐰',desc:'새로운 것에 호기심을 보이면서도, 자기만의 여유로운 속도로 둘러보는 편이에요.',color:'#77a5b4'},CT:{name:'신중한 에너자이저',emoji:'🦁',desc:'낯선 상황은 충분히 살펴보고, 익숙해지면 활발하게 에너지를 발산하는 편이에요.',color:'#8da263'},CS:{name:'포근한 평화주의자',emoji:'🐻',desc:'익숙한 공간에서 편안함을 느끼고, 차분하게 하루를 즐기는 편이에요.',color:'#c68b9a'}};
-const PRODUCTS=['오리가슴살육포','닭가슴살육포','소고기육포','오리안심오돌뼈','돼지등심육포','소홍두깨살육포','오리근위육포'];
+const PRODUCTS=['소홍두깨살(씬)','오리가슴살(씬)','돼지등심육포(씬)','닭가슴살육포(씬)','돼지등심육포(크런치)','소고기육포(크런치)','오리가슴살육포(크런치)','닭가슴살육포(크런치)'];
 const app=document.getElementById('app');
 const state={step:0,questionIndex:0,name:'',answers:Array(QUESTIONS.length).fill(null),product:'',mode:'dog',submitted:false,saving:false,saveStatus:'',session:crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random().toString(36).slice(2)};
 const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -56,7 +74,7 @@ render();
 document.getElementById('questionTitle').focus({preventScroll:true});
 }
 function pick(){
-app.innerHTML=`<span class="eyebrow">메가주 현장 시식 기록</span><h2>오늘 맛본 간식은<br>어떤 간식인가요? 🦴</h2><p class="sub">오늘 시식한 제품을 골라주세요.</p><div class="progress"><span style="width:100%"></span></div><div class="status warn">⚠️ 간식 급여 전 원료 알레르기·식이 제한·조각 크기·경도를 확인하세요. 긴장하거나 급여가 어려우면 시식을 생략하세요.</div><div class="product-grid">${PRODUCTS.map((x,i)=>`<label class="product-item"><input type="radio" name="product" value="${i}" ${state.product===x?'checked':''}><span>🍖<br>${escape(x)}</span></label>`).join('')}</div><label class="product-item" style="display:block;margin-top:10px"><input type="radio" name="product" value="none" ${state.product==='none'?'checked':''}><span>오늘은 시식하지 않았어요</span></label><div class="sep"></div><span class="label">이 간식은 어떻게 선택했나요?</span><div class="options"><label><input type="radio" name="mode" value="dog" ${state.mode==='dog'?'checked':''}> 강아지가 비교 가능한 간식 중 먼저 관심을 보인 제품이에요</label><label><input type="radio" name="mode" value="owner" ${state.mode==='owner'?'checked':''}> 보호자가 골라주거나 급여한 제품이에요</label></div><div class="nav"><button class="button secondary" id="back">이전</button><button class="button orange" id="result">결과 확인 →</button></div>`;
+app.innerHTML=`<span class="eyebrow">메가주 현장 시식 기록</span><h2>오늘 맛본 간식은<br>어떤 간식인가요? 🦴</h2><p class="sub">오늘 시식한 제품을 골라주세요.</p><div class="progress"><span style="width:100%"></span></div><div class="product-grid">${PRODUCTS.map((x,i)=>`<label class="product-item"><input type="radio" name="product" value="${i}" ${state.product===x?'checked':''}><span>${productImages[x]?`<img class="product-image" src="${productImages[x]}" alt="" width="160" height="160">`:'🍖<br>'}${escape(x)}</span></label>`).join('')}</div><label class="product-item" style="display:block;margin-top:10px"><input type="radio" name="product" value="none" ${state.product==='none'?'checked':''}><span>오늘은 시식하지 않았어요</span></label><div class="sep"></div><span class="label">이 간식은 어떻게 선택했나요?</span><div class="options"><label><input type="radio" name="mode" value="dog" ${state.mode==='dog'?'checked':''}> 강아지가 비교 가능한 간식 중 먼저 관심을 보인 제품이에요</label><label><input type="radio" name="mode" value="owner" ${state.mode==='owner'?'checked':''}> 보호자가 골라주거나 급여한 제품이에요</label></div><div class="nav"><button class="button secondary" id="back">이전</button><button class="button orange" id="result">결과 확인 →</button></div>`;
 app.querySelectorAll('input[name=product]').forEach(el=>el.onchange=()=>state.product=el.value==='none'?'none':PRODUCTS[+el.value]);
 app.querySelectorAll('input[name=mode]').forEach(el=>el.onchange=()=>state.mode=el.value);
 document.getElementById('back').onclick=()=>{state.step='quiz';state.questionIndex=QUESTIONS.length-1;render()};

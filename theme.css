@@ -65,6 +65,8 @@ h2, .question h3 { font-weight: 800; }
 .hint, .smallnote, .result-meta { color: var(--muted); }
 .status, .status.warn { border: 1px solid var(--line); background: var(--pale); color: #666; border-radius: 10px; }
 .product-item span { border-color: var(--line); border-radius: 10px; background: var(--paper); }
+.product-grid .product-item > span { height: 100%; flex-direction: column; gap: 8px; }
+.product-image { display: block; width: 100%; max-width: 160px; height: auto; aspect-ratio: 1; object-fit: contain; border-radius: 6px; }
 .product-item input:checked + span { background: var(--paper); border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
 input { accent-color: var(--accent); }
 .result-card:before { content: none; }

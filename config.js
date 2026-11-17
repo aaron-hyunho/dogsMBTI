@@ -8,13 +8,14 @@ window.TREAT_DNA_CONFIG = {
   storeLogoUrl: '',
   // 제품명에 해당하는 실제 상세 페이지 주소를 입력합니다.
   productUrls: {
-    '오리가슴살육포': 'https://smartstore.naver.com/ibins/products/13719806174',
-    '닭가슴살육포': 'https://smartstore.naver.com/ibins/products/13719806174',
-    '소고기육포': 'https://smartstore.naver.com/ibins/products/13719806174',
-    '오리안심오돌뼈': 'https://smartstore.naver.com/ibins/products/13719806174',
-    '돼지등심육포': 'https://smartstore.naver.com/ibins/products/13719806174',
-    '소홍두깨살육포': 'https://smartstore.naver.com/ibins/products/13719806174',
-    '오리근위육포': 'https://smartstore.naver.com/ibins/products/13719806174'
+    '소홍두깨살(씬)': 'https://smartstore.naver.com/ibins/products/13719806174',
+    '오리가슴살(씬)': 'https://smartstore.naver.com/ibins/products/13719806174',
+    '돼지등심육포(씬)': 'https://smartstore.naver.com/ibins/products/13719806174',
+    '닭가슴살육포(씬)': 'https://smartstore.naver.com/ibins/products/13719806174',
+    '돼지등심육포(크런치)': 'https://smartstore.naver.com/ibins/products/13719806174',
+    '소고기육포(크런치)': 'https://smartstore.naver.com/ibins/products/13719806174',
+    '오리가슴살육포(크런치)': 'https://smartstore.naver.com/ibins/products/13719806174',
+    '닭가슴살육포(크런치)': 'https://smartstore.naver.com/ibins/products/13719806174'
   },
   // Apps Script 웹 앱을 배포한 뒤 /exec URL을 붙여 넣으세요.
   appsScriptUrl: '',

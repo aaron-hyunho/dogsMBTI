@@ -49,6 +49,20 @@ test('서버는 성향 점수를 재계산하고 새 탭의 별도 열에 간식
   assert.equal(row[15],SURVEY_VERSION);
 });
 
+test('화면의 모든 간식 제품은 저장할 수 있고 상세 링크와 이미지가 연결됨',()=>{
+  const products=JSON.parse(appSource.match(/const PRODUCTS=(\[[^;]+\]);/)[1].replace(/'/g,'"'));
+  const configContext=vm.createContext({window:{}});
+  vm.runInContext(fs.readFileSync(new URL('../config.js',import.meta.url),'utf8'),configContext);
+  const server=backend();
+  for(const product of products){
+    assert.equal(server.post([1,2,3,4,5,3],{product,selectionMode:'dog'}).ok,true,product);
+    assert.ok(configContext.window.TREAT_DNA_CONFIG.productUrls[product],product);
+    assert.ok(appSource.includes(`'${product}':`),product);
+  }
+  assert.equal(server.rows.length,products.length);
+  assert.equal(server.post([1,2,3,4,5,3],{product:'없는 제품'}).ok,false);
+});
+
 test('여섯 문항 모두 필수이며 누락된 응답은 저장하지 않음',()=>{
   const server=backend();
   for(let i=0;i<6;i++){

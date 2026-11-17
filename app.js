@@ -150,4 +150,4 @@ function saveResponse(){const url=CFG.appsScriptUrl||'';if(!/^https:\/\/script\.
 function render(){clearTimeout(loadingTimer);startAnimation?.cancel();startAnimation=null;scrollTop();if(state.step===0)intro();else if(state.step===1)nameEntry();else if(state.step==='quiz')quiz();else if(state.step===2)pick();else if(state.step==='loading')loading();else results()};renderOfficialChannels();render();
 })();
 
-{const intro=document.getElementById('intro');if(intro){const done=()=>intro.remove();intro.addEventListener('click',done);setTimeout(done,3300)}}
+{const intro=document.getElementById('intro');if(intro){const done=()=>intro.remove();intro.addEventListener('click',done);setTimeout(done,2200)}}

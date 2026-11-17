@@ -134,11 +134,12 @@ input, select, textarea, .field { font-size: 16px; }
 #intro { position: fixed; inset: 0; z-index: 100; overflow: hidden; background: linear-gradient(#bfe3fb, #e9f6ff); animation: introFade .4s ease 2.65s forwards; }
 #intro .intro-clouds { position: absolute; inset: 0; }
 #intro .intro-cloud { position: absolute; filter: drop-shadow(0 6px 10px rgba(110, 160, 205, .28)); }
-#intro .intro-cloud svg { display: block; width: 100%; height: auto; animation: introDrift 2.4s ease-in-out infinite; }
-#intro .to-left { animation: introLeft 1.2s cubic-bezier(.55, 0, .85, .4) calc(1.65s + var(--d)) forwards; }
-#intro .to-right { animation: introRight 1.2s cubic-bezier(.55, 0, .85, .4) calc(1.65s + var(--d)) forwards; }
+#intro .intro-cloud svg { display: block; width: 100%; height: auto; }
+#intro .intro-cloud { opacity: 0; }
+#intro .to-left { animation: introIn .8s ease calc(var(--d) * 2) forwards, introLeft 1.2s cubic-bezier(.55, 0, .85, .4) calc(1.65s + var(--d)) forwards; }
+#intro .to-right { animation: introIn .8s ease calc(var(--d) * 2) forwards, introRight 1.2s cubic-bezier(.55, 0, .85, .4) calc(1.65s + var(--d)) forwards; }
 #intro .intro-logo { position: absolute; left: 50%; top: 50%; width: min(62vw, 280px); height: auto; transform: translate(-50%, -50%); opacity: 0; animation: introLogo 2.3s ease forwards; }
-@keyframes introDrift { 0%, 100% { transform: translateX(-1.6vw); } 50% { transform: translateX(1.6vw); } }
+@keyframes introIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes introLeft { to { transform: translateX(-140vw); } }
 @keyframes introRight { to { transform: translateX(140vw); } }
 @keyframes introLogo { 0% { opacity: 0; transform: translate(-50%, -46%) scale(.96); } 20%, 68% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -52%) scale(1.04); } }

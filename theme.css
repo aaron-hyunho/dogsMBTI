@@ -131,17 +131,8 @@ button, a, label, input, .choices, .button { touch-action: manipulation; -webkit
 input, select, textarea, .field { font-size: 16px; }
 
 /* 오프닝 애니메이션 (약 3초): 구름이 좌우로 갈라지며 랜딩이 열림 */
-#intro { position: fixed; inset: 0; z-index: 100; overflow: hidden; background: linear-gradient(#bfe3fb, #e9f6ff); animation: introFade .25s ease 1.8s forwards; }
-#intro .intro-clouds { position: absolute; inset: 0; }
-#intro .intro-cloud { position: absolute; width: calc(max(64vw, 38vh) * var(--s, 1)); filter: drop-shadow(0 6px 10px rgba(110, 160, 205, .28)); }
-#intro .intro-cloud svg { display: block; width: 100%; height: auto; }
-#intro .intro-cloud { opacity: 0; }
-#intro .to-left { animation: introIn .65s ease calc(var(--d) * 1.2) forwards, introLeft .8s cubic-bezier(.55, 0, .85, .4) calc(1s + var(--d) * .8) forwards; }
-#intro .to-right { animation: introIn .65s ease calc(var(--d) * 1.2) forwards, introRight .8s cubic-bezier(.55, 0, .85, .4) calc(1s + var(--d) * .8) forwards; }
+#intro { position: fixed; inset: 0; z-index: 100; overflow: hidden; background: #fff; animation: introFade .3s ease 1.7s forwards; }
 #intro .intro-logo { position: absolute; left: 50%; top: 50%; width: min(62vw, 280px); height: auto; transform: translate(-50%, -50%); opacity: 0; animation: introLogo 1.5s ease forwards; }
-@keyframes introIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes introLeft { to { transform: translateX(-140vw); } }
-@keyframes introRight { to { transform: translateX(140vw); } }
 @keyframes introLogo { 0% { opacity: 0; transform: translate(-50%, -46%) scale(.96); } 20%, 68% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -52%) scale(1.04); } }
 @keyframes introFade { to { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { #intro { display: none; } }

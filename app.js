@@ -56,6 +56,7 @@ field.oninput=e=>{state.name=e.target.value;field.setCustomValidity('')};
 document.getElementById('nameForm').onsubmit=e=>{
 e.preventDefault();const name=field.value.trim();
 if(!name){field.setCustomValidity('강아지 이름을 적어주세요.');field.reportValidity();return;}
+if(!/^[가-힣a-zA-Z ]+$/.test(name)||!/[가-힣a-zA-Z]/.test(name)){field.setCustomValidity('이름은 한글 또는 영문 글자로 적어주세요. (자음·모음만, 숫자, 특수문자는 안 돼요)');field.reportValidity();return;}
 state.name=name;state.step='quiz';render();
 };
 document.getElementById('back').onclick=()=>{state.step=0;render()};
@@ -83,14 +84,15 @@ document.getElementById('result').onclick=()=>{if(!state.product){toast('선택�
 }
 function selectionText(){if(state.product==='none')return '오늘은 시식 기록 없이 참여했어요.';return state.mode==='dog'?`오늘은 ${state.product}에 먼저 관심을 보였어요!`:`오늘 보호자님이 ${withParticle(state.product,'을','를')} 골라주셨어요.`}
 function sharingText(){let r=getResult();return `${state.name.trim()||'우리 아이'}의 강아지 MBTI는 ${r.type.name} (${r.code})! 🐾\n${state.product!=='none'?selectionText()+'\n':''}${CFG.campaignHashtag||'#강아지MBTI'} ${CFG.instagramHandle||''}`}
-function withParticle(text,consonant,vowel){const name=String(text??'').trim().normalize('NFC');if(!name)return '';const last=name.charCodeAt(name.length-1);return name+(last>=0xac00&&last<=0xd7a3?((last-0xac00)%28?consonant:vowel):`${consonant}(${vowel})`)}
+function withParticle(text,consonant,vowel){const name=String(text??'').trim().normalize('NFC');if(!name)return '';const base=name.replace(/\([^)]*\)$/,'')||name;const last=base.charCodeAt(base.length-1);return name+(last>=0xac00&&last<=0xd7a3?((last-0xac00)%28?consonant:vowel):`${consonant}(${vowel})`)}
 function externalUrl(value){try{const url=new URL(value);return url.protocol==='https:'?url.href:''}catch{return ''}}
 function productInfo(){
 const hasProduct=state.product&&state.product!=='none';
 const heading=hasProduct?`오늘 ${withParticle(state.name.trim()||'우리 아이','이','가')} 관심을 보인 간식 정보예요!`:'오늘은 시식하지 않았어요.';
-const description=hasProduct?`<strong>${escape(state.product)}</strong>${escape(withParticle(state.product,'은','는').slice(state.product.length))} <span class="ingredient-highlight">첨가물이 없는</span> <strong>프리미엄 수제 간식</strong>이에요.`:'YEET의 간식을 공식 스토어에서 만나보세요.';
+const description=hasProduct?`<strong>${escape(state.product)}</strong>${escape(withParticle(state.product,'은','는').slice(state.product.length))} <strong>프리미엄 수제 간식</strong>이에요.<br>합성첨가물, 보존제, 인공향료, 인공색소 등 반려견에게 믿고 먹일 수 있는 건강하고 맛있는 간식입니다.`:'YEET의 간식을 공식 스토어에서 만나보세요.';
 const url=externalUrl(hasProduct?CFG.productUrls?.[state.product]:CFG.storeUrl);
-return `<details class="recommend" open><summary>${escape(heading)}</summary><p>${description}</p>${url?`<a class="product-link" href="${escape(url)}" target="_blank" rel="noopener noreferrer">더 알아보기 →</a>`:'<span class="product-link unavailable" aria-disabled="true">더 알아보기 →</span>'}</details>`;
+const more=url?`<a class="product-link" href="${escape(url)}" target="_blank" rel="noopener noreferrer">더 알아보기 →</a>`:'<span class="product-link unavailable" aria-disabled="true">더 알아보기 →</span>';
+return `<details class="recommend" open><summary>${escape(heading)}</summary><div class="teaser"><p>${description}</p><div class="teaser-fade">${more}</div></div></details>`;
 }
 function renderOfficialChannels(){
 const channels=document.getElementById('officialChannels');
@@ -126,10 +128,10 @@ ctx.font='36px "Noto Sans KR",sans-serif';ctx.fillStyle='#666';wrap(ctx,formatDe
 ctx.strokeStyle='#dedede';ctx.beginPath();ctx.roundRect(90,1210,900,270,20);ctx.stroke();
 ctx.fillStyle='#35342f';ctx.font='bold 39px "Noto Sans KR",sans-serif';wrap(ctx,state.product==='none'?'우리 아이만의 속도와 성향을 함께 알아가요.':selectionText(),540,1315,790,65);
 
-ctx.font='28px "Noto Sans KR",sans-serif';ctx.fillText(CFG.campaignHashtag||'#강아지MBTI',540,1733);
+ctx.font='28px "Noto Sans KR",sans-serif';ctx.fillText([CFG.campaignHashtag||'#강아지MBTI',...(state.name.trim()?['#'+state.name.trim().replace(/\s+/g,'')]:[]),'#'+r.type.name.replace(/\s+/g,'')].join(' '),540,1733,900);
 ctx.font='26px "Noto Sans KR",sans-serif';ctx.fillStyle='#777';ctx.fillText('보호자 관찰 기반의 재미있는 성향 테스트',540,1823);return c;}
 async function canvasBlob(){await Promise.all([document.fonts.ready,...Array.from(document.querySelectorAll('.top img, .result-animal'),img=>img.decode())]);return new Promise(resolve=>createCanvas().toBlob(resolve,'image/png'))}
-async function downloadCard(){try{const blob=await canvasBlob();if(!blob)throw Error('Canvas export error');const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`${(state.name.trim()||'우리아이').replace(/[^\w가-힣-]/g,'')}-강아지MBTI.png`;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('결과 이미지 저장을 시작했어요.')}catch(e){toast('이미지 저장에 실패했어요. 다른 브라우저에서 시도해 주세요.')}}
+async function downloadCard(){try{const blob=await canvasBlob();if(!blob)throw Error('Canvas export error');const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`YEET-${(state.name.trim()||'우리아이').replace(/[^\w가-힣-]/g,'')}-MBTI.png`;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('결과 이미지 저장을 시작했어요.')}catch(e){toast('이미지 저장에 실패했어요. 다른 브라우저에서 시도해 주세요.')}}
 async function shareCard(){try{const blob=await canvasBlob();if(!blob)throw Error('Blob missing');const file=new File([blob],'dog-mbti.png',{type:'image/png'});if(navigator.share&&navigator.canShare?.({files:[file]})){await navigator.share({files:[file],title:'강아지 MBTI',text:sharingText()});return;}if(navigator.share){await navigator.share({title:'강아지 MBTI',text:sharingText(),url:location.href});toast('이미지 공유는 지원되지 않을 수 있어요. 저장 버튼도 이용해 주세요.');return;}toast('이 기기에서는 직접 공유가 지원되지 않아요. 이미지를 저장해 주세요.')}catch(e){if(e.name!=='AbortError')toast('공유하지 못했어요. 이미지 저장을 이용해 주세요.')}}
 let pending=null;window.addEventListener('message',e=>{if(!pending)return;const okOrigin=e.origin==='https://script.google.com'||e.origin.endsWith('.googleusercontent.com');if(!okOrigin||e.source!==pending.frame.contentWindow||!e.data||e.data.kind!=='TREAT_DNA_SHEET'||e.data.nonce!==pending.nonce)return;clearTimeout(pending.timer);pending.frame.remove();const st=document.getElementById('saveStatus');if(st)st.textContent=e.data.ok?'✅ 구글시트에 응답이 저장되었습니다.':'⚠️ 시트 기록 실패: '+(e.data.error||'알 수 없는 오류');pending=null;});
 function saveResponse(){const st=document.getElementById('saveStatus');const url=CFG.appsScriptUrl||'';if(!/^https:\/\/script\.google\.com\/macros\/s\/.+\/exec$/.test(url)){if(st)st.remove();return;}const nonce=Math.random().toString(36).slice(2)+Date.now().toString(36);const frame=document.createElement('iframe');frame.name='sheet_'+nonce;frame.style.display='none';frame.setAttribute('aria-hidden','true');document.body.append(frame);const form=document.createElement('form');form.method='POST';form.action=url;form.target=frame.name;form.style.display='none';let r=getResult();const data={nonce,surveyVersion:SURVEY_VERSION,sessionId:state.session,dogName:state.name.trim().slice(0,24),answers:JSON.stringify(state.answers),product:state.product==='none'?'시식하지 않음':state.product,selectionMode:state.product==='none'?'none':state.mode,type:r.code,novelty:r.novelty===null?'':r.novelty.toFixed(3),activity:r.activity===null?'':r.activity.toFixed(3),ambiguous:r.ambiguous?'Y':'N'};for(const [k,v]of Object.entries(data)){const el=document.createElement('input');el.type='hidden';el.name=k;el.value=String(v);form.append(el)}document.body.append(form);pending={nonce,frame,timer:setTimeout(()=>{if(pending&&pending.nonce===nonce){const x=document.getElementById('saveStatus');if(x)x.textContent='⚠️ 저장 확인 응답을 받지 못했어요. 구글시트에서 직접 확인해 주세요.';frame.remove();pending=null;}},15000)};form.submit();form.remove();}

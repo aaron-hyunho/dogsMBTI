@@ -19,6 +19,6 @@ window.TREAT_DNA_CONFIG = {
     '닭가슴살육포(크런치)': 'https://smartstore.naver.com/ibins/products/13719806174'
   },
   // Apps Script 웹 앱을 배포한 뒤 /exec URL을 붙여 넣으세요.
-  appsScriptUrl: '',
+  appsScriptUrl: 'https://script.google.com/macros/s/AKfycbx06sQ03GglfzxTtp6zo1SsW3YCLvKdldxlEgP4ZhlM5vH6f33pdDDT2aD7fVUPX7rElg/exec',
   campaignHashtag: '#강아지MBTI'
 };

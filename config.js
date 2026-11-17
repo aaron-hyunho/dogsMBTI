@@ -3,6 +3,7 @@ window.TREAT_DNA_CONFIG = {
   brandName: 'YEET',
   instagramHandle: '@yeetfordogs',
   instagramUrl: 'https://www.instagram.com/yeetfordogs',
+  smartStoreUrl: 'https://smartstore.naver.com/ibins',
   // 자사몰 주소가 준비되면 입력합니다.
   storeUrl: '',
   storeLogoUrl: '',

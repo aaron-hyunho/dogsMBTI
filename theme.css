@@ -113,3 +113,6 @@ input { accent-color: var(--accent); }
 #toast { background: #000; border-radius: 10px; }
 .field:focus-visible, .choices input:focus-visible + em, .product-item input:focus-visible + span { outline: 2px solid var(--ink); outline-offset: 4px; }
 @media (max-width: 360px) { .result-card h2 { font-size: 25px; } }
+
+/* 모바일 터치 지연 최소화 */
+button, a, label, input, .choices, .button { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }

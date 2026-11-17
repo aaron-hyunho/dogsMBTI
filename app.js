@@ -37,7 +37,7 @@ const app=document.getElementById('app');
 const state={step:0,questionIndex:0,name:'',answers:Array(QUESTIONS.length).fill(null),product:'',mode:'dog',submitted:false,saving:false,saveStatus:'',session:crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random().toString(36).slice(2)};
 const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function toast(message){const t=document.getElementById('toast');t.textContent=message;t.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.remove('show'),3500)}
-function scrollTop(){window.scrollTo({top:0,behavior:'smooth'})}
+function scrollTop(){window.scrollTo({top:0,behavior:'instant'})}
 function getResult(){const result=scoreAnswers(state.answers);return {...result,type:TYPES[result.code]};}
 let startAnimation=null;
 const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');

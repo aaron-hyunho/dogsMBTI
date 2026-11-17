@@ -42,7 +42,9 @@ test('서버는 성향 점수를 재계산하고 새 탭의 별도 열에 간식
   assert.equal(server.post(answers,{novelty:'1',activity:'5',type:'ET'}).ok,true);
   const row=server.rows[0],result=scoreAnswers(answers);
   assert.equal(server.tabs[0],'응답_v2');
-  assert.deepEqual(Array.from(row.slice(3,9)),answers);
+  assert.deepEqual(Array.from(row.slice(3,7)),answers.slice(0,4));
+  assert.equal(row[7],'양쪽 비슷');
+  assert.equal(row[8],'생선 간식을 많이 선호');
   assert.equal(row[11],result.code);
   assert.equal(row[12],result.novelty.toFixed(3));
   assert.equal(row[13],result.activity.toFixed(3));

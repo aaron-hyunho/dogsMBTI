@@ -7,6 +7,9 @@ const SHEET_NAME = '응답_v2';
 const SURVEY_VERSION = 'temperament-treat-v2';
 const HEADERS = ['기록시간','참여ID','강아지이름','Q1_산책탐색','Q2_공간탐색','Q3_집활동','Q4_산책활동','간식식감선호','간식원료선호','선택제품','선택방식','유형','탐색성평균','활동성평균','중간결과','설문버전'];
 const PRODUCTS = ['소홍두깨살(씬)','오리가슴살(씬)','돼지등심육포(씬)','닭가슴살육포(씬)','돼지등심육포(크런치)','소고기육포(크런치)','오리가슴살육포(크런치)','닭가슴살육포(크런치)','시식하지 않음'];
+// 간식 선호 문항(Q5 식감, Q6 원료)은 점수 대신 글자로 기록합니다.
+const TEXTURE_LABELS = ['', '부드러운 간식을 많이 선호', '부드러운 간식을 조금 선호', '양쪽 비슷', '쫄깃한 간식을 조금 선호', '쫄깃한 간식을 많이 선호'];
+const INGREDIENT_LABELS = ['', '고기 간식을 많이 선호', '고기 간식을 조금 선호', '양쪽 비슷', '생선 간식을 조금 선호', '생선 간식을 많이 선호'];
 const MODES = ['dog','owner','none'];
 function doPost(e) {
   const p = (e && e.parameter) || {};
@@ -28,7 +31,7 @@ function doPost(e) {
       const safe = x => { const s=String(x == null ? '' : x).slice(0,180); return /^[=+\-@\t\r]/.test(s) ? "'"+s : s; };
       const novelty=(answers[0]+answers[1])/2,activity=(answers[2]+answers[3])/2;
       const type=(novelty<=3?'E':'C')+(activity<=3?'S':'T');
-      const row = [new Date(),safe(p.sessionId),safe(p.dogName),...answers.map(v=>v===null?'':v),safe(p.product),safe(p.selectionMode),type,novelty.toFixed(3),activity.toFixed(3),novelty===3||activity===3?'Y':'N',SURVEY_VERSION];
+      const row = [new Date(),safe(p.sessionId),safe(p.dogName),...answers.slice(0,4),TEXTURE_LABELS[answers[4]],INGREDIENT_LABELS[answers[5]],safe(p.product),safe(p.selectionMode),type,novelty.toFixed(3),activity.toFixed(3),novelty===3||activity===3?'Y':'N',SURVEY_VERSION];
       sheet.appendRow(row);
       ok = true;
     } finally { lock.releaseLock(); }

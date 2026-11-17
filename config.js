@@ -19,7 +19,7 @@ window.TREAT_DNA_CONFIG = {
     '닭가슴살육포(크런치)': 'https://smartstore.naver.com/ibins/products/13719806174'
   },
   // Apps Script 웹 앱을 배포한 뒤 /exec URL을 붙여 넣으세요.
-  appsScriptUrl: 'https://script.google.com/macros/s/AKfycbx06sQ03GglfzxTtp6zo1SsW3YCLvKdldxlEgP4ZhlM5vH6f33pdDDT2aD7fVUPX7rElg/exec',
+  appsScriptUrl: 'https://script.google.com/macros/s/AKfycbwPWdFEk9YrgZKNcTY-4Ndi6j6RgNz2J9RudmnxkeTkmq6dxOaaiBP2SoynivQv70Dy/exec',
   // 결과 로딩 화면에 보여줄 광고 이미지 주소(비우면 선택한 간식 사진이 표시됩니다).
   loadingImageUrl: '',
   campaignHashtag: '#강아지MBTI'

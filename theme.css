@@ -103,7 +103,7 @@ input { accent-color: var(--accent); }
 .recommend .teaser-fade .product-link, .recommend .plain-more .product-link { color: #fff; }
 .recommend .product-link.unavailable { opacity: .5; }
 .loading-page { text-align: center; padding-top: 12px; }
-.loading-ad { position: relative; height: clamp(200px, calc(100vh - 400px), 440px); height: clamp(200px, calc(100dvh - 400px), 440px); width: auto; max-width: 100%; aspect-ratio: 955 / 1470; margin: 0 auto 22px; border: 1px solid var(--line, #dedede); border-radius: 16px; background: #fff; display: grid; place-items: center; overflow: hidden; }
+.loading-ad { position: relative; height: clamp(260px, calc(100vh - 250px), 600px); height: clamp(260px, calc(100dvh - 250px), 600px); width: auto; max-width: 100%; aspect-ratio: 955 / 1470; margin: 0 auto 22px; border: 1px solid var(--line, #dedede); border-radius: 16px; background: #fff; display: grid; place-items: center; overflow: hidden; }
 .loading-ad img { width: 100%; height: 100%; object-fit: contain; }
 .loading-ad-label { position: absolute; top: 8px; left: 10px; font-size: 11px; font-weight: 700; color: #888; letter-spacing: .05em; }
 .loading-page h2 { margin: 0 0 8px; line-height: 1.5; }
@@ -126,3 +126,6 @@ input { accent-color: var(--accent); }
 
 /* 모바일 터치 지연 최소화 */
 button, a, label, input, .choices, .button { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+
+/* iOS 입력창 포커스 시 자동 확대 방지: 입력창 글자는 16px 이상 */
+input, select, textarea, .field { font-size: 16px; }

@@ -91,7 +91,7 @@ function productInfo(){
 const hasProduct=state.product&&state.product!=='none';
 const dogName=(state.name.trim()||'우리 아이').normalize('NFC');
 const dogParticle=withParticle(dogName,'이','가').slice(dogName.length);
-const heading=hasProduct?`오늘 <strong class="rec-dog">${escape(dogName)}</strong>${dogParticle}<br>관심을 보인 간식 정보예요!`:'오늘은 시식하지 않았어요.';
+const heading=hasProduct?`오늘 <strong class="rec-dog">${escape(dogName)}</strong>${dogParticle} 관심을 보인 간식 정보예요!`:'오늘은 시식하지 않았어요.';
 const description=hasProduct?`<strong>${escape(state.product)}</strong>${escape(withParticle(state.product,'은','는').slice(state.product.length))} <strong>프리미엄 수제 간식</strong>이에요. 합성첨가물, 보존제, 인공향료, 인공색소 등 반려견에게 믿고 먹일 수 있는 건강하고 맛있는 간식입니다.`:'YEET의 간식을 공식 스토어에서 만나보세요.';
 const url=externalUrl(hasProduct?CFG.productUrls?.[state.product]:CFG.storeUrl);
 const more=url?`<a class="product-link" href="${escape(url)}" target="_blank" rel="noopener noreferrer">더 알아보기 →</a>`:'<span class="product-link unavailable" aria-disabled="true">더 알아보기 →</span>';

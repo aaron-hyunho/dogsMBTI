@@ -132,7 +132,7 @@ input, select, textarea, .field { font-size: 16px; }
 
 /* 오프닝 애니메이션 (약 3초): 구름이 좌우로 갈라지며 랜딩이 열림 */
 #intro { position: fixed; inset: 0; z-index: 100; overflow: hidden; background: #fff; animation: introFade .3s ease 1.7s forwards; }
-#intro .intro-logo { position: absolute; left: 50%; top: 50%; width: min(62vw, 280px); height: auto; transform: translate(-50%, -50%); opacity: 0; animation: introLogo 1.5s ease forwards; }
+#intro .intro-logo { position: absolute; left: 50%; top: 50%; width: min(72vw, 340px); height: auto; transform: translate(-50%, -50%); opacity: 0; animation: introLogo 1.5s ease forwards; }
 @keyframes introLogo { 0% { opacity: 0; transform: translate(-50%, -46%) scale(.96); } 20%, 68% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -52%) scale(1.04); } }
 @keyframes introFade { to { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { #intro { display: none; } }

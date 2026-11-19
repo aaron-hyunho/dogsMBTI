@@ -1,4 +1,4 @@
-# 강아지 MBTI — 메가주 QR 테스트
+# 멍BTI — 메가주 QR 테스트
 
 별도 서버 없이 GitHub Pages(설문 화면) + Google Apps Script(응답 수신) + Google Sheets(저장)로 운영하는 모바일 웹앱입니다.
 

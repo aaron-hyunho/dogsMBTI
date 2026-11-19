@@ -22,5 +22,5 @@ window.TREAT_DNA_CONFIG = {
   appsScriptUrl: 'https://script.google.com/macros/s/AKfycbwPWdFEk9YrgZKNcTY-4Ndi6j6RgNz2J9RudmnxkeTkmq6dxOaaiBP2SoynivQv70Dy/exec',
   // 결과 로딩 화면에 보여줄 광고 이미지 주소(비우면 선택한 간식 사진이 표시됩니다).
   loadingImageUrl: '',
-  campaignHashtag: '#강아지MBTI'
+  campaignHashtag: '#멍BTI'
 };

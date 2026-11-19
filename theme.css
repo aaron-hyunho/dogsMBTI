@@ -22,8 +22,7 @@ h2, .question h3 { font-weight: 800; }
 .hero { padding-top: 28px; }
 .hero .paw { filter: none; }
 .accent { color: var(--ink); }
-.hero .mbti-label { display: inline-flex; align-items: baseline; gap: 10px; max-width: 100%; margin: 16px 0 6px; padding: 8px 16px 10px; border: 2px solid var(--ink); border-radius: 18px; box-shadow: 4px 4px 0 var(--ink); font-size: clamp(25px, 7vw, 34px); line-height: 1.25; letter-spacing: -1px; transform: rotate(-2deg); }
-.hero .mbti-letters { font-weight: 900; letter-spacing: 1px; }
+.meong-wordmark { display: block; width: 280px; max-width: 100%; height: auto; margin: 28px 0 24px; }
 .sub { color: #666; }
 .pill { border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); }
 .eyebrow, .question .qnum { color: var(--muted); letter-spacing: 0; }
